@@ -6,8 +6,8 @@ import time
 import serial
 import socket
 import threading
-sys.path.append('./mod')
-sys.path.append('./lib')
+sys.path.append('/root/test3/test-main/test2/mod')
+sys.path.append('/root/test3/test-main/test2/lib')
 from led_alive import *
 from lcd import *
 from seri import *
