@@ -17,7 +17,7 @@ from buzzer_pwm import *
 def BUZZER_START():
 
     global my_buzzer
-    my_buzzer = BuzzerPwm(29)
+    my_buzzer = BuzzerPwm(port.PA10)
     my_buzzer = my_buzzer.tone_start(tone_open,1)
 
 def LED_ALIVE():
@@ -55,7 +55,7 @@ def SERIPORT1_TCP():
     global SERIPORT_TCP
     SERIPORT_TCP = Seriport('/dev/ttyS1',9600)
     SERIPORT_TCP.listenStart()
-    TCP_SERIPORT = Tcp("192.168.1.101",5000)
+    TCP_SERIPORT = Tcp("192.168.1.110",5000)
     TCP_SERIPORT.connect()
     TCP_SERIPORT.listenStart()
 

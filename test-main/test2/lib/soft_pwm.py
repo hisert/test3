@@ -1,10 +1,9 @@
-import OPi.GPIO as GPIO
+from pyA20.gpio import gpio
+from pyA20.gpio import port
 import threading
 import time
 
-GPIO.setboard(GPIO.PCPCPLUS)
-GPIO.setmode(GPIO.BOARD)
-GPIO.setwarnings(False)
+gpio.init()
 
 class SoftPwm(threading.Thread):
 
@@ -21,19 +20,18 @@ class SoftPwm(threading.Thread):
       self.dutyCycle = dutyCycle
       if self.control == False :
           self.control = True
-          GPIO.setup(self.pin, GPIO.OUT)
-          GPIO.setwarnings(False)
+          gpio.setcfg(self.pin, gpio.OUTPUT)
           self.thread = threading.Thread(None, self.run, None, (), {})
           self.thread.start()
 
   def run(self):
       while self.control == True:
           if self.dutyCycle > 0:
-              GPIO.output(self.pin, GPIO.HIGH)
+              gpio.output(self.pin, gpio.HIGH)
               time.sleep(self.dutyCycle * self.sliceTime)
       
           if self.dutyCycle < self.maxCycle:
-              GPIO.output(self.pin, GPIO.LOW)
+              gpio.output(self.pin,gpio.LOW)
               time.sleep((self.maxCycle - self.dutyCycle) * self.sliceTime)
 
   def setDuty(self, dutyCycle):
@@ -48,5 +46,5 @@ class SoftPwm(threading.Thread):
   def stop(self):
    
       self.control = False
-      GPIO.output(self.pin, GPIO.LOW)
+      gpio.output(self.pin,gpio.LOW)
 
